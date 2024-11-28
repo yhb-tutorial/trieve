@@ -120,6 +120,8 @@ services:
       keycloak:
         condition: service_healthy
     # network_mode: "host"
+    networks:
+      - app-network
     restart: always
     environment:
       - ADMIN_API_KEY=${ADMIN_API_KEY}
@@ -172,6 +174,8 @@ services:
       dockerfile: Dockerfile.ingestion-worker
     restart: always
     # network_mode: "host"
+    networks:
+      - app-network
     depends_on:
       tika:
         condition: service_healthy
@@ -189,7 +193,9 @@ services:
       context: ./server/
       dockerfile: Dockerfile.file-worker
     restart: always
-    # network_mode: "host"
+    # network_mode: 
+    networks:
+      - app-network
     depends_on:
       tika:
         condition: service_healthy
@@ -207,7 +213,9 @@ services:
       context: ./server/
       dockerfile: Dockerfile.delete-worker
     restart: always
-    # network_mode: "host"
+    # network_mode: 
+    networks:
+      - app-network
     depends_on:
       tika:
         condition: service_healthy
